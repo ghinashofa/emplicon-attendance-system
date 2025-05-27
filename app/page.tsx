@@ -373,8 +373,7 @@ export default function Dashboard() {
           <div
             className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100"
             style={{
-              backgroundImage:
-                "url('/images/bg-announce.svg')",
+              backgroundImage: "url('/images/bg-announce.svg')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -389,8 +388,9 @@ export default function Dashboard() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-2 gap-2">
                     <span className="text-sm text-[535862] flex-shrink-0">
-                      18 Agustus 2025
+                      18 Agustus 2025 | 08.00 WIB
                     </span>
+
                     <span className="bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 px-2 py-1 rounded-md text-[13px] font-medium border border-orange-200 flex-shrink-0">
                       Event
                     </span>
@@ -412,29 +412,28 @@ export default function Dashboard() {
       {/* Enhanced Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
         {/* Elevated Clock In/Out Button */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -top-8">
+        <div className="absolute left-1/2 transform -translate-x-1/2 -top-6">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={
               clockInStatus === "clocked-in" ? handleClockOut : handleClockIn
             }
-            className={`w-16 h-16 rounded-full ${
-              clockInStatus === "clocked-in"
-                ? "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700"
-                : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
-            } flex items-center justify-center text-white shadow-lg transition-all duration-200`}
+            className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-200 border-[3px] border-white"
             style={{
-              boxShadow:
-                clockInStatus === "clocked-in"
-                  ? "0 8px 25px rgba(249, 115, 22, 0.4), 0 3px 10px rgba(0, 0, 0, 0.1)"
-                  : "0 8px 25px rgba(59, 130, 246, 0.4), 0 3px 10px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "#0BA5EC",
+              boxShadow: `
+        0 0 0 3px #FFFFFF,
+        0 0 0 6px rgba(11, 165, 236, 0.6),
+        0 8px 25px rgba(11, 165, 236, 0.4),
+        0 3px 10px rgba(0, 0, 0, 0.1)
+      `,
             }}
           >
             {clockInStatus === "clocked-in" ? (
-              <LogIn size={24} className="rotate-180" />
+              <LogIn size={24} className="rotate-180 text-white" />
             ) : (
-              <LogIn size={24} />
+              <LogIn size={24} className="text-white" />
             )}
           </motion.button>
         </div>
