@@ -448,7 +448,7 @@ export default function Dashboard() {
             </div>
 
             {/* Center Spacer for Clock In/Out Button */}
-            <div className="flex flex-col items-center px-4">
+            <div className="flex flex-col items-center ml-2">
               <div className="h-6 w-6"></div>
               <span
                 className={`text-xs font-medium mt-1 ${

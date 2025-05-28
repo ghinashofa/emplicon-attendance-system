@@ -4,13 +4,15 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Clock, MapPin, Camera, Shield } from "lucide-react"
 import { motion } from "framer-motion"
+import axios from "axios"
 
 export default function ClockInPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [currentTime, setCurrentTime] = useState("")
   const [currentDate, setCurrentDate] = useState("")
-  const [location, setLocation] = useState("Kantor Pusat Jakarta")
+  const [address, setAddress] = useState<string>("Mengambil lokasi...")
+
 
   // Update time and date in real-time
   useEffect(() => {
@@ -31,6 +33,35 @@ export default function ClockInPage() {
     return () => clearInterval(timer)
   }, [])
 
+  useEffect(() => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude
+        const lon = position.coords.longitude
+        fetchAddress(lat, lon)
+      },
+      (err) => {
+        console.error("Geolocation error:", err)
+        setAddress("Gagal mendapatkan lokasi")
+      }
+    )
+  } else {
+    setAddress("Geolocation tidak didukung")
+  }
+}, [])
+
+const fetchAddress = async (lat: number, lon: number) => {
+  try {
+    const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+    setAddress(res.data.display_name || "Alamat tidak ditemukan")
+  } catch (error) {
+    console.error("Error fetching address:", error)
+    setAddress("Alamat tidak ditemukan")
+  }
+}
+
+  
   const handleClockIn = () => {
     setLoading(true)
     // Simulate loading
@@ -41,26 +72,10 @@ export default function ClockInPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
-      {/* Status Bar */}
-      <div className="bg-white px-4 py-2 flex justify-between items-center text-sm border-b border-gray-100">
-        <div className="font-medium text-gray-900">{currentTime}</div>
-        <div className="flex items-center gap-2">
-          <div className="flex gap-1">
-            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <div className="w-1 h-1 bg-gray-600 rounded-full"></div>
-          </div>
-          <div className="flex items-center gap-1">
-            <div className="w-4 h-2 border border-gray-400 rounded-sm">
-              <div className="w-full h-full bg-green-500 rounded-sm"></div>
-            </div>
-            <span className="bg-green-500 text-white px-1.5 py-0.5 rounded text-xs font-medium">42</span>
-          </div>
-        </div>
-      </div>
+      
 
       {/* Top Bar */}
-      <div className="bg-white px-6 py-4 flex justify-between items-center shadow-sm">
+      <div className="px-6 py-4 flex justify-between items-center shadow-sm">
         <button
           onClick={() => router.push("/")}
           className="flex items-center text-slate-600 hover:text-slate-900 transition-colors"
@@ -123,7 +138,8 @@ export default function ClockInPage() {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-slate-900">Lokasi Terverifikasi</h2>
-                <p className="text-slate-500">{location}</p>
+                <p className="text-gray-900 font-medium mb-3">{address}</p>
+
               </div>
             </div>
             <div className="bg-emerald-50 rounded-2xl p-4 border border-emerald-100 relative z-10">

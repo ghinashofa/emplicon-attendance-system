@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, RotateCcw, MapPin, MessageSquare } from "lucide-react"
 import { motion } from "framer-motion"
+import axios from "axios"
 
 export default function ConfirmationPage() {
   const router = useRouter()
@@ -13,6 +14,8 @@ export default function ConfirmationPage() {
   const [notes, setNotes] = useState("")
   const [loading, setLoading] = useState(false)
   const [capturedImage, setCapturedImage] = useState<string | null>(null)
+  const [address, setAddress] = useState<string>("Mengambil lokasi...")
+
 
   // Get captured image from localStorage or sessionStorage
   useEffect(() => {
@@ -40,6 +43,34 @@ export default function ConfirmationPage() {
     const timer = setInterval(updateDateTime, 1000)
     return () => clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude
+        const lon = position.coords.longitude
+        fetchAddress(lat, lon)
+      },
+      (err) => {
+        console.error("Geolocation error:", err)
+        setAddress("Gagal mendapatkan lokasi")
+      }
+    )
+  } else {
+    setAddress("Geolocation tidak didukung")
+  }
+}, [])
+
+const fetchAddress = async (lat: number, lon: number) => {
+  try {
+    const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+    setAddress(res.data.display_name || "Alamat tidak ditemukan")
+  } catch (error) {
+    console.error("Error fetching address:", error)
+    setAddress("Alamat tidak ditemukan")
+  }
+}
 
   const handleRetakePhoto = () => {
     router.push("/ambil-foto")
@@ -151,7 +182,7 @@ export default function ConfirmationPage() {
         >
           <p className="text-sm text-gray-500 mb-3">Lokasi</p>
           <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-            <p className="text-gray-900 font-medium mb-3">Jalan Sudirman Kav. 52 Jakarta Selatan</p>
+            <p className="text-gray-900 font-medium mb-3">{address}</p>
 
             {/* Map placeholder */}
             <div className="w-full h-32 bg-gray-100 rounded-xl relative overflow-hidden">
