@@ -59,6 +59,7 @@ export default function ClockInPage() {
             setAddress("Geolocation tidak didukung");
         }
     }, []);
+    
 
     const fetchAddress = async (lat: number, lon: number) => {
         try {
@@ -197,7 +198,7 @@ export default function ClockInPage() {
                         disabled={loading}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full bg-[#0BA5EC] hover:from-violet-700 hover:to-blue-600 text-white font-medium rounded-2xl shadow-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center p-2 relative overflow-hidden"
+                        className="w-full bg-[#0BA5EC] hover:bg-[#6A41C6] text-white font-medium rounded-2xl shadow-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center p-2 relative overflow-hidden"
                     >
                         {loading ? (
                             <div className="flex items-center">
