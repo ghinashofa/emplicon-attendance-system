@@ -29,10 +29,9 @@ export default function Dashboard() {
     const [serverTime, setServerTime] = useState("");
     const [notifications, setNotifications] = useState(3);
     const [greeting, setGreeting] = useState("Selamat pagi");
-    const [clockInStatus, setClockInStatus] = useState("not-clocked-in"); // "not-clocked-in" | "clocked-in"
+    const [clockInStatus, setClockInStatus] = useState("not-clocked-in"); 
     const [clockInTime, setClockInTime] = useState("");
 
-    // Check clock-in status on component mount
     useEffect(() => {
         const status = localStorage.getItem("clockInStatus");
         const storedClockInTime = localStorage.getItem("clockInTime");
@@ -49,13 +48,11 @@ export default function Dashboard() {
         }
     }, []);
 
-    // Update time every minute
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
             const hours = now.getHours();
 
-            // Set greeting based on time of day
             if (hours >= 5 && hours < 12) {
                 setGreeting("Selamat pagi");
             } else if (hours >= 12 && hours < 15) {
@@ -79,7 +76,6 @@ export default function Dashboard() {
                 }) + " WIB"
             );
 
-            // Format date as "Hari, DD Bulan YYYY"
             const options: Intl.DateTimeFormatOptions = {
                 weekday: "long",
                 year: "numeric",
@@ -91,7 +87,6 @@ export default function Dashboard() {
     
         updateDateTime();
 
-        // Then update every minute
         const timer = setInterval(updateDateTime, 60000);
         return () => clearInterval(timer);
     }, []);
@@ -288,7 +283,6 @@ export default function Dashboard() {
                 {/* Clock In/Out Card */}
                 {getActionButton()}
 
-                {/* Menu Grid */}
                 <motion.div
                     initial={{ y: 10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -440,9 +434,7 @@ export default function Dashboard() {
                 
             </main>
 
-            {/* Enhanced Bottom Navigation */}
             <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
-                {/* Elevated Clock In/Out Button */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 -top-6">
                     <motion.button
                         whileHover={{ scale: 1.05 }}
@@ -485,10 +477,10 @@ export default function Dashboard() {
                     </motion.button>
                 </div>
 
-                {/* Navigation Items Container */}
+                {/* Navigation Bar */}
                 <div className="px-4 py-3 pt-4">
                     <div className="flex items-end justify-between max-w-md mx-auto">
-                        {/* Left Side Navigation */}
+                        {/* Left Side */}
                         <div className="flex space-x-8">
                             <NavItem
                                 icon={<Home size={20} />}
@@ -501,7 +493,7 @@ export default function Dashboard() {
                             />
                         </div>
 
-                        {/* Center Spacer for Clock In/Out Button */}
+                        {/* Center */}
                         <div className="flex flex-col items-center ml-2">
                             <div className="h-6 w-6"></div>
                             <span
@@ -517,7 +509,7 @@ export default function Dashboard() {
                             </span>
                         </div>
 
-                        {/* Right Side Navigation */}
+                        {/* Right Side */}
                         <div className="flex space-x-8">
                             <NavItem
                                 icon={<CheckSquare size={20} />}
@@ -532,7 +524,7 @@ export default function Dashboard() {
     );
 }
 
-// Enhanced Menu Icon Component
+// Enhanced Menu Component
 function MenuIcon({
     label,
     icon,
@@ -557,7 +549,7 @@ function MenuIcon({
     );
 }
 
-// Enhanced Navigation Item Component
+// Enhanced Navigation Component
 function NavItem({
     icon,
     label,
