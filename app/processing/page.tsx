@@ -203,7 +203,7 @@ export default function ProcessingPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <h2 className="text-2xl font-bold mb-2 text-slate-900">
+                                <h2 className="font-bold text-xl mb-1 text-slate-900">
                                     Memproses
                                 </h2>
                                 <p className="text-slate-500 mb-6">
@@ -292,7 +292,7 @@ export default function ProcessingPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <h2 className="text-2xl font-bold mb-2 text-slate-900">
+                                <h2 className="text-xl font-bold mb-1 text-slate-900">
                                     Memverifikasi
                                 </h2>
                                 <p className="text-slate-500">
@@ -329,7 +329,7 @@ export default function ProcessingPage() {
                                 >
                                     <CheckCircle className="h-14 w-14 text-emerald-500" />
                                 </motion.div>
-                                <h2 className="text-2xl font-bold mb-2 text-slate-900">
+                                <h2 className="text-xl font-bold mb-2 text-slate-900">
                                     Clock In Berhasil!
                                 </h2>
                                 <p className="text-slate-500">

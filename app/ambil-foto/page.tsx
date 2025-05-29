@@ -23,11 +23,9 @@ export default function AmbilFotoPage() {
     const [isCapturing, setIsCapturing] = useState(false);
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
     const [faceDetected, setFaceDetected] = useState(false);
-    // const [location, setLocation] = useState("Kantor Pusat Jakarta");
     const [cameraPermission, setCameraPermission] = useState(true);
     const [faceDetectionProgress, setFaceDetectionProgress] = useState(0);
 
-    // Update time every second
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
@@ -44,7 +42,6 @@ export default function AmbilFotoPage() {
         return () => clearInterval(timer);
     }, []);
 
-    // Simulate face detection with progress
     useEffect(() => {
         if (isCameraReady) {
             const interval = setInterval(() => {
@@ -114,10 +111,8 @@ export default function AmbilFotoPage() {
                 const imageData = canvas.toDataURL("image/png");
                 setCapturedImage(imageData);
 
-                // Store the captured image for use in confirmation page
                 localStorage.setItem("capturedPhoto", imageData);
 
-                // Success - go to confirmation page after a brief delay
                 setTimeout(() => {
                     router.push("/confirmation");
                 }, 500);
@@ -135,7 +130,6 @@ export default function AmbilFotoPage() {
         >
             {/* Top Bar */}
             <div className="relative px-4 py-4 mt-4">
-                {/* Tombol Back di kiri */}
                 <button
                     onClick={() => router.push("/clock-in")}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-900 transition-colors"
@@ -143,7 +137,6 @@ export default function AmbilFotoPage() {
                     <ArrowLeft className="h-5 w-5" />
                 </button>
 
-                {/* Judul Tengah */}
                 <motion.h1
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -196,7 +189,7 @@ export default function AmbilFotoPage() {
                     </div>
                 </motion.div>
 
-                {/* Camera Viewfinder */}
+                {/* Camera */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -204,7 +197,6 @@ export default function AmbilFotoPage() {
                     className="relative mb-6"
                 >
                     <div className="aspect-[3/4] w-full bg-black rounded-3xl overflow-hidden shadow-xl border-8 border-slate-800 relative">
-                        {/* Decorative elements */}
                         <div className="absolute top-0 left-0 right-0 h-8 bg-slate-800 z-10 flex items-center justify-center">
                             <div className="w-20 h-1 bg-slate-700 rounded-full"></div>
                         </div>
@@ -233,7 +225,7 @@ export default function AmbilFotoPage() {
                                     </div>
                                 )}
 
-                                {/* Face detection overlay */}
+                                {/* Face detection */}
                                 {isCameraReady && (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
                                         <motion.div
@@ -242,7 +234,6 @@ export default function AmbilFotoPage() {
                                             transition={{ delay: 0.3 }}
                                             className="w-48 h-48 rounded-full relative"
                                         >
-                                            {/* Face detection progress ring */}
                                             <svg
                                                 className="absolute inset-0 w-full h-full rotate-90"
                                                 viewBox="0 0 100 100"
@@ -277,7 +268,6 @@ export default function AmbilFotoPage() {
                                                 />
                                             </svg>
 
-                                            {/* Corner markers */}
                                             <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-white rounded-tl-lg"></div>
                                             <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-white rounded-tr-lg"></div>
                                             <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-white rounded-bl-lg"></div>
@@ -296,7 +286,6 @@ export default function AmbilFotoPage() {
                                             )}
                                         </motion.div>
 
-                                        {/* Status messages - positioned to avoid camera button */}
                                         <div className="absolute top-16 left-0 right-0 flex justify-center">
                                             {faceDetected ? (
                                                 <motion.div
@@ -344,7 +333,6 @@ export default function AmbilFotoPage() {
 
                     <canvas ref={canvasRef} className="hidden" />
 
-                    {/* Camera button - positioned outside the viewfinder to avoid overlap */}
                     {isCameraReady && !capturedImage && (
                         <div className="absolute left-1/2 transform -translate-x-1/2 -mt-24">
                             <motion.button
@@ -376,7 +364,6 @@ export default function AmbilFotoPage() {
                     )}
                 </motion.div>
 
-                {/* Instructions - positioned with extra margin to account for camera button */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

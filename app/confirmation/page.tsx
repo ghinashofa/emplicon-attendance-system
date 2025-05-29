@@ -26,7 +26,7 @@ export default function ConfirmationPage() {
         }
     }, []);
 
-    // Update time every second
+    // Update time 
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
@@ -44,8 +44,7 @@ export default function ConfirmationPage() {
                 }) + " WIB"
             );
 
-            // Format date as "DD Month YYYY"
-            const options = { year: "numeric", month: "long", day: "numeric" };
+            const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
             setCurrentDate(now.toLocaleDateString("id-ID", options));
         };
 
@@ -90,6 +89,8 @@ export default function ConfirmationPage() {
 
     const handleClockIn = () => {
         setLoading(true);
+        // Store clock-in time with current clockInTime value
+        localStorage.setItem("clockInTime", new Date().toISOString());
         // Store notes if any
         if (notes.trim()) {
             localStorage.setItem("clockInNotes", notes.trim());

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import {
     CheckCircle,
     Home,
@@ -9,6 +10,7 @@ import {
     Clock,
     MapPin,
     Shield,
+    Notebook 
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -17,12 +19,12 @@ export default function SuccessPage() {
     const [currentTime, setCurrentTime] = useState("");
     const [currentDate, setCurrentDate] = useState("");
     const [serverTime, setServerTime] = useState("");
-    const [location, setLocation] = useState("Kantor Pusat Jakarta");
     const [countdown, setCountdown] = useState(5);
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
     const [clockInTime, setClockInTime] = useState("");
+    const [address, setAddress] = useState<string>("Mengambil lokasi...");
+    const [notes, setNotes] = useState<string>("");
 
-    // Update time and date in real-time
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
@@ -31,13 +33,6 @@ export default function SuccessPage() {
                     hour: "2-digit",
                     minute: "2-digit",
                 })
-            );
-            setServerTime(
-                now.toLocaleTimeString("id-ID", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                }) + " WIB"
             );
             setCurrentDate(
                 now.toLocaleDateString("id-ID", {
@@ -53,7 +48,33 @@ export default function SuccessPage() {
         return () => clearInterval(timer);
     }, []);
 
-    // Countdown timer and auto-redirect
+    useEffect(() => {
+        const storedImage =
+            localStorage.getItem("capturedPhoto") ||
+            sessionStorage.getItem("capturedPhoto");
+        if (storedImage) {
+            setCapturedImage(storedImage);
+        }
+
+        const storedTime = localStorage.getItem("clockInTime");
+        if (storedTime) {
+            const clockInDate = new Date(storedTime);
+            const formattedTime = clockInDate.toLocaleTimeString("id-ID", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+            }) + " WIB";
+            setClockInTime(formattedTime);
+            setServerTime(formattedTime);
+        }
+
+        // Get stored notes
+        const storedNotes = localStorage.getItem("clockInNotes");
+        if (storedNotes) {
+            setNotes(storedNotes);
+        }
+    }, []);
+
     useEffect(() => {
         if (countdown > 0) {
             const timer = setTimeout(() => {
@@ -61,14 +82,11 @@ export default function SuccessPage() {
             }, 1000);
             return () => clearTimeout(timer);
         } else {
-            // Set clock-in status before redirecting
             localStorage.setItem("clockInStatus", "clocked-in");
-            localStorage.setItem("clockInTime", new Date().toISOString());
             router.push("/");
         }
     }, [countdown, router]);
 
-    // Animation variants
     const container = {
         hidden: { opacity: 0 },
         show: {
@@ -85,34 +103,39 @@ export default function SuccessPage() {
     };
 
     const handleGoHome = () => {
-        // Set clock-in status before redirecting
         localStorage.setItem("clockInStatus", "clocked-in");
-        localStorage.setItem("clockInTime", new Date().toISOString());
         router.push("/");
     };
 
-    // Get captured image from localStorage or sessionStorage
     useEffect(() => {
-        const storedImage =
-            localStorage.getItem("capturedPhoto") ||
-            sessionStorage.getItem("capturedPhoto");
-        if (storedImage) {
-            setCapturedImage(storedImage);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    fetchAddress(lat, lon);
+                },
+                (err) => {
+                    console.error("Geolocation error:", err);
+                    setAddress("Gagal mendapatkan lokasi");
+                }
+            );
+        } else {
+            setAddress("Geolocation tidak didukung");
         }
     }, []);
 
-    useEffect(() => {
-        const storedTime = localStorage.getItem("clockInTime");
-        if (storedTime) {
-            const clockInDate = new Date(storedTime);
-            const formattedTime = clockInDate.toLocaleTimeString("id-ID", {
-                hour: "2-digit",
-                minute: "2-digit",
-            }) + " WIB";
-            setClockInTime(formattedTime);
+    const fetchAddress = async (lat: number, lon: number) => {
+        try {
+            const res = await axios.get(
+                `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+            );
+            setAddress(res.data.display_name || "Alamat tidak ditemukan");
+        } catch (error) {
+            console.error("Error fetching address:", error);
+            setAddress("Alamat tidak ditemukan");
         }
-    }, []);
-
+    };
 
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
@@ -160,7 +183,7 @@ export default function SuccessPage() {
                         {/* Details Section */}
                         <div className="px-4 max-w-md mx-auto">
                             <div className="py-6 flex flex-col gap-4 items-center justify-center w-full">
-                                {/* Avatar / Captured Image */}
+                                {/* Image */}
                                 <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
                                     {capturedImage ? (
                                         <img
@@ -191,7 +214,7 @@ export default function SuccessPage() {
                                         className="w-full flex items-center py-2 px-4 bg-white rounded-xl shadow-md border border-slate-100 relative overflow-hidden"
                                     >
                                         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
-                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center mr-4 shadow-md">
+                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-violet-500 flex items-center justify-center mr-4 shadow-md">
                                             <Calendar className="w-6 h-6 text-white" />
                                         </div>
                                         <div className="flex-1 relative z-10">
@@ -204,13 +227,13 @@ export default function SuccessPage() {
                                         </div>
                                     </motion.div>
 
-                                    {/* Waktu Server */}
+                                    {/* Waktu */}
                                     <motion.div
                                         variants={item}
                                         className="w-full flex items-center py-2 px-4 bg-white rounded-xl shadow-md border border-slate-100 relative overflow-hidden"
                                     >
                                         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-violet-100 to-violet-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
-                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-violet-500 flex items-center justify-center mr-4 shadow-md">
+                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center mr-4 shadow-md">
                                             <Clock className="w-6 h-6 text-white" />
                                         </div>
                                         <div className="flex-1 relative z-10">
@@ -218,7 +241,7 @@ export default function SuccessPage() {
                                                 Waktu Clock In
                                             </p>
                                             <p className="font-medium text-base text-black">
-                                                {clockInTime}
+                                                {serverTime}
                                             </p>
                                         </div>
                                     </motion.div>
@@ -229,15 +252,33 @@ export default function SuccessPage() {
                                         className="w-full flex items-center p-4 bg-white rounded-xl shadow-md border border-slate-100 relative overflow-hidden"
                                     >
                                         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
-                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center mr-4 shadow-md">
+                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-500 flex items-center justify-center mr-4 shadow-md">
                                             <MapPin className="w-6 h-6 text-white" />
                                         </div>
                                         <div className="flex-1 relative z-10">
                                             <p className="text-sm text-slate-500">
                                                 Lokasi
                                             </p>
-                                            <p className="font-bold text-slate-900">
-                                                {location}
+                                            <p className="font-medium text-base text-black">
+                                            {address}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                    {/* Catatan */}
+                                    <motion.div
+                                        variants={item}
+                                        className="w-full flex items-center p-4 bg-white rounded-xl shadow-md border border-slate-100 relative overflow-hidden"
+                                    >
+                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
+                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center mr-4 shadow-md">
+                                            <Notebook className="w-6 h-6 text-white" />
+                                        </div>
+                                        <div className="flex-1 relative z-10">
+                                            <p className="text-sm text-slate-500">
+                                                Catatan
+                                            </p>
+                                            <p className="font-medium text-base text-black">
+                                                {notes || "Tidak ada catatan"}
                                             </p>
                                         </div>
                                     </motion.div>
@@ -245,7 +286,7 @@ export default function SuccessPage() {
                             </div>
                         </div>
 
-                        {/* Footer Section */}
+                        {/* Button */}
                         <div className="p-4 border-t border-slate-100">
                             <motion.button
                                 variants={item}

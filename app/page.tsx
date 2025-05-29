@@ -88,7 +88,7 @@ export default function Dashboard() {
             };
             setCurrentDate(now.toLocaleDateString("id-ID", options));
         };
-        // Update immediately
+    
         updateDateTime();
 
         // Then update every minute
@@ -109,9 +109,6 @@ export default function Dashboard() {
 
         setClockInStatus("not-clocked-in");
         setClockInTime("");
-
-        // You could also navigate to a clock-out confirmation page
-        // router.push("/clock-out")
     };
 
     const getStatusBadge = () => {
@@ -137,6 +134,7 @@ export default function Dashboard() {
         );
     };
 
+    // Display Clock In Clock Out
     const getActionButton = () => {
         if (clockInStatus === "clocked-in") {
             return (
@@ -146,39 +144,45 @@ export default function Dashboard() {
                     transition={{ duration: 0.3 }}
                     className="mb-8"
                 >
-                    <motion.div
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                        onClick={handleClockOut}
-                        className="bg-white rounded-2xl shadow-lg p-5 border border-gray-100 cursor-pointer relative overflow-hidden"
+                    <div className="bg-white rounded-2xl p-4 px-5 relative overflow-hidden"
                         style={{
-                            background:
-                                "linear-gradient(135deg, #ffffff 0%, #fef7f0 100%)",
+                    
                             boxShadow:
                                 "0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1)",
                         }}
                     >
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-50 to-orange-100 rounded-bl-full opacity-60 -mr-8 -mt-8"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50 to-blue-100 rounded-bl-full opacity-60 -mr-8 -mt-8"></div>
 
                         <div className="flex items-center justify-between relative z-10">
                             <div className="flex items-center flex-1 min-w-0">
-                                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mr-4 shadow-lg flex-shrink-0">
-                                    <LogOut className="h-6 w-6 text-white rotate-180" />
+                                <div className="w-10 h-10 bg-gradient-to-br from-[#0BA5EC] to-[#1D8CBF] rounded-xl flex items-center justify-center mr-4 shadow-lg flex-shrink-0">
+                                    <Clock className="h-6 w-6 text-white" />
                                 </div>
                                 <div className="min-w-0">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                                        Clock Out Sekarang
+                                    <h3 className="text-sm text-gray-600 mb-1">
+                                        Clock In
                                     </h3>
-                                    <p className="text-sm text-gray-600">
-                                        Clock In: {clockInTime}
+                                    <p className="text-md font-semibold text-gray-900">
+                                        {clockInTime}
                                     </p>
                                 </div>
                             </div>
-                            <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center shadow-sm flex-shrink-0">
-                                <ChevronRight className="h-5 w-5 text-orange-600" />
+                            
+                            <div className="flex items-center flex-1 min-w-0">
+                                <div className="w-10 h-10 bg-gradient-to-br from-[#FF692E] to-[#D94D15] rounded-xl flex items-center justify-center mr-4 shadow-lg flex-shrink-0">
+                                    <Clock className="h-6 w-6 text-white" />
+                                </div>
+                                <div className="min-w-0">
+                                    <h3 className="text-sm text-gray-600 mb-1">
+                                        Clock Out
+                                    </h3>
+                                    <p className="text-md font-semibold text-gray-900">
+                                        {clockInTime}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </motion.div>
             );
         }
@@ -209,7 +213,7 @@ export default function Dashboard() {
 
                     <div className="flex items-center justify-between relative z-10">
                         <div className="flex items-center flex-1 min-w-0">
-                            <div className="w-10 h-10 bg-[linear-gradient(to_bottom_right,_#0BA5EC,_#97BDC9)] rounded-xl flex items-center justify-center mr-4 shadow-lg flex-shrink-0">
+                            <div className="w-10 h-10 bg-[#0BA5EC] rounded-xl flex items-center justify-center mr-4 shadow-lg flex-shrink-0">
                                 <LogIn className="h-6 w-6 text-white" />
                             </div>
                             <div className="min-w-0">
@@ -265,7 +269,7 @@ export default function Dashboard() {
                             Erika Wijayanti
                         </h2>
                         <p className="text-gray-500 text-sm">
-                            Waktu server: {serverTime}
+                            Waktu saat ini: {serverTime}
                         </p>
                     </div>
                     {getStatusBadge()}
@@ -397,7 +401,7 @@ export default function Dashboard() {
                             <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-50 to-blue-100 rounded-bl-full opacity-60 -mr-6 -mt-6"></div>
 
                             <div className="flex items-start relative z-10">
-                                <div className="w-8 h-8 rounded-lg bg-[linear-gradient(to_bottom_right,_#0BA5EC,_#97BDC9)] flex items-center justify-center mr-3 shadow-md flex-shrink-0">
+                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-400 to-violet-500 flex items-center justify-center mr-3 shadow-md flex-shrink-0">
                                     <Calendar className="w-5 h-5 text-white" />
                                 </div>
                                 <div className="flex-1 min-w-0">

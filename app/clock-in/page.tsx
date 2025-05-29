@@ -25,7 +25,7 @@ export default function ClockInPage() {
             );
 
             // Format date as "Hari, DD Bulan YYYY"
-            const options = {
+            const options: Intl.DateTimeFormatOptions = {
                 weekday: "long",
                 year: "numeric",
                 month: "long",
