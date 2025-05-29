@@ -172,7 +172,7 @@ export default function AmbilFotoPage() {
                 >
                     <div className="bg-white rounded-2xl shadow-lg py-3 px-4 border border-slate-100 flex justify-center w-max">
                         <div className="flex items-center justify-center">
-                            <div className="w-10 h-10 bg-gradient-to-r from-[#0BA5EC] to-[#97BDC9] rounded-xl flex items-center justify-center mr-3 shadow-md">
+                            <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center mr-3 shadow-md">
                                 <Clock className="h-5 w-5 text-white" />
                             </div>
                             <p className="text-sm text-[#535862]">
@@ -377,7 +377,7 @@ export default function AmbilFotoPage() {
                         </h3>
                         <div className="grid grid-row-2 gap-4">
                             <div className="flex items-start">
-                                <div className="w-10 h-10 bg-gradient-to-r from-[#0BA5EC] to-[#97BDC9] rounded-xl flex items-center justify-center mr-3 flex-shrink-0 shadow-md">
+                                <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl flex items-center justify-center mr-3 flex-shrink-0 shadow-md">
                                     <Eye className="h-5 w-5 text-white" />
                                 </div>
                                 <p className="text-sm text-slate-700">

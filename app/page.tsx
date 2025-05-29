@@ -114,8 +114,8 @@ export default function Dashboard() {
     const getStatusBadge = () => {
         if (clockInStatus === "clocked-in") {
             return (
-                <div className="bg-gradient-to-r from-emerald-100 to-emerald-200 px-3 py-1.5 rounded-full border border-emerald-200 shadow-sm ml-4 flex-shrink-0">
-                    <span className="text-emerald-700 text-sm font-medium whitespace-nowrap">
+                <div className="bg-[#0A7669] px-3 py-1.5 rounded-xl shadow-sm ml-4 flex-shrink-0">
+                    <span className="text-white text-sm font-medium whitespace-nowrap">
                         Sudah Clock In
                     </span>
                 </div>
@@ -125,7 +125,7 @@ export default function Dashboard() {
         return (
             <div className="flex flex-col items-start ml-4 flex-shrink-0 gap-1">
                 <span className="text-sm text-gray-500 mb-1">Status</span>
-                <div className="bg-[#E60073] px-4 py-2 rounded-full shadow-md">
+                <div className="bg-[#E60073] px-4 py-2 rounded-xl shadow-md">
                     <span className="text-white text-sm font-semibold whitespace-nowrap">
                         Belum Clock In
                     </span>
@@ -146,15 +146,19 @@ export default function Dashboard() {
                 >
                     <div className="bg-white rounded-2xl p-4 px-5 relative overflow-hidden"
                         style={{
-                    
+                            backgroundImage:
+                                "url('/images/bg-wave2.svg'), linear-gradient(135deg, #ffffff, #f8fafc)",
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
                             boxShadow:
-                                "0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1)",
+                                "0 4px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.1)",
                         }}
                     >
                     <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50 to-blue-100 rounded-bl-full opacity-60 -mr-8 -mt-8"></div>
-
-                        <div className="flex items-center justify-between relative z-10">
-                            <div className="flex items-center flex-1 min-w-0">
+                        <div className="flex items-center justify-between relative z-10 gap-4">
+                         {/* Clock In*/}
+                            <div className="flex items-center flex-1 min-w-0 ">
                                 <div className="w-10 h-10 bg-gradient-to-br from-[#0BA5EC] to-[#1D8CBF] rounded-xl flex items-center justify-center mr-4 shadow-lg flex-shrink-0">
                                     <Clock className="h-6 w-6 text-white" />
                                 </div>
@@ -168,6 +172,10 @@ export default function Dashboard() {
                                 </div>
                             </div>
                             
+                            {/* Divider */}
+                            <div className="h-10 w-px bg-gray-300" />
+
+                             {/* Clock Out */}
                             <div className="flex items-center flex-1 min-w-0">
                                 <div className="w-10 h-10 bg-gradient-to-br from-[#FF692E] to-[#D94D15] rounded-xl flex items-center justify-center mr-4 shadow-lg flex-shrink-0">
                                     <Clock className="h-6 w-6 text-white" />
@@ -177,7 +185,7 @@ export default function Dashboard() {
                                         Clock Out
                                     </h3>
                                     <p className="text-md font-semibold text-gray-900">
-                                        {clockInTime}
+                                        -
                                     </p>
                                 </div>
                             </div>
@@ -425,8 +433,11 @@ export default function Dashboard() {
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </motion.div>
+
+                
             </main>
 
             {/* Enhanced Bottom Navigation */}

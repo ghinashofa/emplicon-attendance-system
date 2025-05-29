@@ -119,7 +119,10 @@ export default function ProcessingPage() {
     }, [router]);
 
     return (
-        <div className="flex flex-col min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+        <div
+            className="flex flex-col min-h-screen bg-no-repeat bg-cover bg-center"
+            style={{ backgroundImage: "url('/images/bg-main.svg')" }}
+        >
             <main className="flex-1 flex items-center justify-center p-6">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}

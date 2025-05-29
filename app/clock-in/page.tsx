@@ -125,10 +125,10 @@ export default function ClockInPage() {
                         className="mb-6"
                     >
                         <div className="bg-white rounded-3xl shadow-lg p-4 border border-slate-100 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-100 to-blue-100 rounded-bl-full opacity-50 -mr-10 -mt-10"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-100 to-purple-50 rounded-bl-full opacity-50 -mr-10 -mt-10"></div>
 
                             <div className="flex items-center relative z-10">
-                                <div className="w-12 h-12 bg-gradient-to-r from-[#0BA5EC] to-[#97BDC9] rounded-2xl flex items-center justify-center mr-5 shadow-lg">
+                                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center mr-5 shadow-lg">
                                     <Clock className="h-7 w-7 text-white" />
                                 </div>
                                 <div>
@@ -136,7 +136,7 @@ export default function ClockInPage() {
                                         Waktu Saat Ini
                                     </p>
                                     <div className="flex items-center">
-                                        <p className="text-xl font-bold text-slate-900 mr-2">
+                                        <p className="text-lg font-bold text-slate-900 mr-2">
                                             {currentTime}
                                         </p>
                                         <span className="text-xs font-normal text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
@@ -203,7 +203,7 @@ export default function ClockInPage() {
                         {loading ? (
                             <div className="flex items-center">
                                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
-                                <span className="text-lg">Memproses...</span>
+                                <span className="text-md">Memproses...</span>
                             </div>
                         ) : (
                             <div className="flex items-center">

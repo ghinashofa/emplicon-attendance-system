@@ -213,7 +213,7 @@ export default function SuccessPage() {
                                         variants={item}
                                         className="w-full flex items-center py-2 px-4 bg-white rounded-xl shadow-md border border-slate-100 relative overflow-hidden"
                                     >
-                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
+                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-violet-100 to-purple-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
                                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-violet-500 flex items-center justify-center mr-4 shadow-md">
                                             <Calendar className="w-6 h-6 text-white" />
                                         </div>
@@ -232,7 +232,7 @@ export default function SuccessPage() {
                                         variants={item}
                                         className="w-full flex items-center py-2 px-4 bg-white rounded-xl shadow-md border border-slate-100 relative overflow-hidden"
                                     >
-                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-violet-100 to-violet-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
+                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
                                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center mr-4 shadow-md">
                                             <Clock className="w-6 h-6 text-white" />
                                         </div>
@@ -251,7 +251,7 @@ export default function SuccessPage() {
                                         variants={item}
                                         className="w-full flex items-center p-4 bg-white rounded-xl shadow-md border border-slate-100 relative overflow-hidden"
                                     >
-                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
+                                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-lime-100 to-lime-50 rounded-bl-full opacity-50 -mr-5 -mt-5"></div>
                                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-500 flex items-center justify-center mr-4 shadow-md">
                                             <MapPin className="w-6 h-6 text-white" />
                                         </div>
@@ -278,7 +278,7 @@ export default function SuccessPage() {
                                                 Catatan
                                             </p>
                                             <p className="font-medium text-base text-black">
-                                                {notes || "Tidak ada catatan"}
+                                                {notes || "-"}
                                             </p>
                                         </div>
                                     </motion.div>
