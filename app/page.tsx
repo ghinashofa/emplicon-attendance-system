@@ -290,17 +290,18 @@ export default function Dashboard() {
                     className="mb-8"
                 >
                     <div className="flex flex-wrap justify-between gap-y-6">
-                        <div className="w-[23%]">
-                            <MenuIcon
-                                label="Kehadiran"
-                                icon={
-                                    <IconWrapper
-                                        src="/images/icon-kehadiran.png"
-                                        alt="Kehadiran"
-                                    />
-                                }
-                            />
-                        </div>
+                    <div className="w-[23%]">
+  <MenuIcon
+    label="Kehadiran"
+    icon={
+      <IconWrapper
+        src="/images/icon-kehadiran.png"
+        alt="Kehadiran"
+      />
+    }
+    onClick={() => router.push("/riwayat-kehadiran")}
+  />
+</div>
                         <div className="w-[23%]">
                             <MenuIcon
                                 label="Perizinan"
