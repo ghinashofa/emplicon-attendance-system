@@ -120,8 +120,8 @@ export default function Dashboard() {
         return (
             <div className="flex flex-col items-start ml-4 flex-shrink-0 gap-1">
                 <span className="text-sm text-gray-500 mb-1">Status</span>
-                <div className="bg-[#E60073] px-4 py-2 rounded-xl shadow-md">
-                    <span className="text-white text-sm font-semibold whitespace-nowrap">
+                <div className="bg-[#FFDCD9] px-4 py-2 rounded-xl">
+                    <span className="text-[#F92814] text-[15px] font-semibold whitespace-nowrap">
                         Belum Clock In
                     </span>
                 </div>

@@ -180,8 +180,7 @@ export default function ClockInPage() {
                         <div className="flex items-start space-x-2">
                             <Shield className="h-5 w-5 text-emerald-500 flex-shrink-0 mt-0.5" />
                             <p className="text-emerald-700 text-[15px] leading-snug">
-                                Anda berada di lokasi kantor dan dapat melakukan
-                                Clock In
+                                Anda berada di lokasi kantor
                             </p>
                         </div>
                     </div>
